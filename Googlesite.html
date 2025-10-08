@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Google Search</title>
+
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --accent: #1a73e8;
+      --text: #111827;
+    }
+    html,body { height:100%; margin:0; font-family: Inter, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { min-height:100%; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; }
+    .card {
+      width:100%; max-width:680px; background:var(--card); border-radius:12px; box-shadow:0 6px 24px rgba(16,24,40,0.08);
+      padding:36px;
+      text-align:center;
+    }
+    h1 { margin:0 0 10px; font-size:1.6rem; font-weight:600; }
+    p.sub { margin:0 0 20px; color:#666; }
+    form { display:flex; gap:8px; align-items:center; justify-content:center; }
+    input[type="search"]{
+      flex:1; min-width:0; padding:12px 14px; border-radius:8px; border:1px solid #e6e9ef; font-size:1rem;
+      box-shadow:inset 0 1px 0 rgba(0,0,0,0.02);
+    }
+    button {
+      padding:11px 16px; border-radius:8px; border:0; background:var(--accent); color:#fff; font-size:1rem; cursor:pointer;
+    }
+    .footer { margin-top:18px; font-size:0.9rem; color:#666; }
+    @media (max-width:480px) {
+      .card { padding:20px; }
+      form { flex-direction:column; }
+      button { width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-labelledby="title">
+      <h1 id="title">Simple Google Search</h1>
+      <p class="sub">Type a query and press Search — results open on Google.</p>
+
+      <!-- form submits to Google search (param name="q") -->
+      <form id="gsearch" action="https://www.google.com/search" method="get" target="_blank" rel="noopener">
+        <input
+          id="q"
+          name="q"
+          type="search"
+          autocomplete="off"
+          placeholder="Search Google (e.g. cats, salesforce tutorials)"
+          aria-label="Search query"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="footer">Hosted on GitHub Pages • Redirects to google.com</div>
+    </div>
+  </div>
+
+  <script>
+    // small enhancement: trim whitespace before submit
+    document.getElementById('gsearch').addEventListener('submit', function (e) {
+      var input = document.getElementById('q');
+      input.value = input.value.trim();
+      if (!input.value) {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
